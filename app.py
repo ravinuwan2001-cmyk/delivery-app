@@ -41,7 +41,6 @@ with st.form("my_form", clear_on_submit=True):
     
     st.divider()
     
-    # නව ප්‍රශ්න 6
     q1 = st.selectbox("1. ඉදිරි මාසය සඳහා Delivery යාමට වඩාත්ම පහසු ආකාරය?", 
                       ["හැමදාම Delivery යා හැකී", "සතියේ දින 4ක් Delivery යා හැකී", 
                        "අවශ්‍යනම් කළමනාකරණාකාර තුමා දැනුවත් කරනවා", "හදිසි අවස්තා වල පමණක් යා හැකි"])
@@ -58,7 +57,6 @@ with st.form("my_form", clear_on_submit=True):
     
     submit = st.form_submit_button("Submit කරන්න")
 
-# දත්ත සේව් කිරීමේ කොටස අලුත් ප්‍රශ්න වලට ගැලපෙන ලෙස
 if submit:
     if epf and q_name:
         new_data = pd.DataFrame([{
