@@ -38,23 +38,27 @@ with st.form("my_form", clear_on_submit=True):
         else: st.warning("EPF අංකය ලැයිස්තුවේ නැත.")
     
     q_name = st.text_input("සම්පූර්ණ නම:", value=name)
-    q1 = st.selectbox("1. ඉදිරි මාසය සඳහා Delivery යාමට වඩාත්ම පහසු ආකාරය:", 
+    
+    st.divider()
+    
+    # නව ප්‍රශ්න 6
+    q1 = st.selectbox("1. ඉදිරි මාසය සඳහා Delivery යාමට වඩාත්ම පහසු ආකාරය?", 
                       ["හැමදාම Delivery යා හැකී", "සතියේ දින 4ක් Delivery යා හැකී", 
                        "අවශ්‍යනම් කළමනාකරණාකාර තුමා දැනුවත් කරනවා", "හදිසි අවස්තා වල පමණක් යා හැකි"])
-    q2 = st.text_input("2. ඉදිරි මාසය තුළ ලබා ගැනීමට බලාපොරොත්තු වන නිවාඩු දින:")
-    q3 = st.radio("3. ගබඩා රාක්ක පිළිවෙළට තැබීමට හෝ පිරිසිදු කිරීමට අමතර දිනක් අවශ්‍යද?", ["ඔව්", "නැත"])
-    q4 = st.text_area("4. කළමනාකරු වෙත පෞද්ගලිකව පැවසිය යුතු වෙනත් යෝජනා හෝ ගැටලු:")
+    
+    q2 = st.text_input("2. ඉදිරි මාසය තුළ ලබා ගැනීමට බලාපොරොත්තු වන නිවාඩු දින මොනවාද?")
+    
+    q3 = st.text_area("3. Delivery යාමේදී නිතර ගැටලු ඇතිවන මාර්ග හෝ ස්ථාන තිබේද?")
+    
+    q4 = st.text_input("4. පෞද්ගලික හේතූන් මත Delivery යා නොහැකි ප්‍රදේශ මොනවාද?")
+    
+    q5 = st.text_area("5. ගබඩාව තුළ භාණ්ඩ හානි වීම් (Damages) අවම කිරීමට ඔබේ යෝජනා මොනවාද?")
+    
+    q6 = st.text_area("6. ගබඩා තුල සිදු කරන කාර්යයන් වඩාත් ඵලදායීව සහා ඉක්මනින් කිරීමට ඇති ඔබගේ යෝජනා:")
     
     submit = st.form_submit_button("Submit කරන්න")
 
+# දත්ත සේව් කිරීමේ කොටස අලුත් ප්‍රශ්න වලට ගැලපෙන ලෙස
 if submit:
     if epf and q_name:
-        new_data = pd.DataFrame([{"Date": datetime.now().strftime("%Y-%m-%d"), "EPF": epf, "Name": q_name, "Delivery": q1, "Holidays": q2, "Cleanup": q3, "Remarks": q4}])
-        new_data.to_csv(data_file, mode='a', header=not os.path.exists(data_file), index=False)
-        st.balloons()
-        st.success("දත්ත සාර්ථකව යොමු කළා!")
-    else:
-        st.error("කරුණාකර EPF අංකය සහ නම ඇතුළත් කරන්න.")
-
-if st.checkbox("දත්ත පරීක්ෂා කරන්න (Admin Only)"):
-    if os.path.exists(data_file): st.dataframe(pd.read_csv(data_file))
+        new_data = pd.DataFrame([{
