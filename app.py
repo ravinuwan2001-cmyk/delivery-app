@@ -76,5 +76,17 @@ if submit:
     else:
         st.error("කරුණාකර EPF අංකය සහ නම ඇතුළත් කරන්න.")
 
+# Admin Only Section with Password Protection
+st.divider()
 if st.checkbox("දත්ත පරීක්ෂා කරන්න (Admin Only)"):
-    if os.path.exists(data_file): st.dataframe(pd.read_csv(data_file))
+    # Password input field
+    admin_password = st.text_input("Admin Password එක ඇතුළත් කරන්න:", type="password")
+    
+    if admin_password == "Kurunegala@nplk":
+        st.success("Access Granted!")
+        if os.path.exists(data_file): 
+            st.dataframe(pd.read_csv(data_file))
+        else:
+            st.info("තවම දත්ත කිසිවක් ඇතුළත් කර නොමැත.")
+    elif admin_password != "":
+        st.error("Password එක වැරදියි! කරුණාකර නැවත උත්සාහ කරන්න.")
